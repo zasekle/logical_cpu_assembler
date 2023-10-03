@@ -1,0 +1,57 @@
+R0   00
+R1   01
+R2   10
+R3   11
+
+ALU Commands
+ADD  000
+SHR  001
+SHL  010
+NOT  011
+AND  100
+OR   101
+XOR  110
+CMP  111 //Not enabled
+
+//Add RA and RB, put answer in RB.
+ALU Instruction            1{ALU Command}{RA}{RB}
+ADD RA RB
+
+//Store contents of register RA in RAM address in RB.
+Store Instruction          0001{RA}{RB}
+ST RA RB
+
+//Store contents of RB to RAM address in RA.
+Load Instruction           0000{RA}{RB}
+LD RA RB
+
+// Loads data x into register RB.
+Data Instruction           001000{RB}
+DATA RB x
+
+//Jumps to address inside reg.
+JumpRegister Instruction   001100{RB}
+JMPR RB
+
+//Jumps to mark point mark.
+JumpAddress Instruction    01000000
+JMP mark
+
+//Jumps to MARK point 'mark' if flags are true.
+// C means ALU carry bit is set (there was overflow from the last ALU instruction).
+// A means a > b on last ALU instruction.
+// E means a == b on last ALU instruction.
+// Z means the output of the last ALU instruction was 0.
+JumpIf Instruction         0101{C}{A}{E}{Z}
+JIF **** mark
+
+//Clears flags (the C, A, E and Z bits mentioned above JumpIf).
+ClearFlags                 01100000
+CLF
+
+//Ends execution of the program.
+End Instruction            11001111
+END
+
+//Marks the program for a jump point 'm' is the variable name of the jump point. (not an instruction)
+MARK m
