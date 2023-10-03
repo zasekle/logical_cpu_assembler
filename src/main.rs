@@ -122,7 +122,7 @@ impl Instructions {
 }
 
 fn main() {
-    let file_name = "code";
+    let file_name = "multiplication";
     let max_num_ram_cells = usize::pow(2, 8);
 
     let mut file = File::open(format!("programs/{}", file_name)).unwrap();
@@ -131,7 +131,7 @@ fn main() {
 
     let mut marks_to_machine_code = HashMap::new();
     let mut real_line_number = 0;
-    let mut machine_code_line_number = 0;
+    let mut machine_code_line_number: i32 = -1;
     let mut instructions = Vec::new();
     for line in content.lines() {
         real_line_number += 1;
@@ -285,7 +285,7 @@ fn main() {
                     }
                 }
 
-                let mark_variable = words[1];
+                let mark_variable = words[2];
 
                 machine_code_line_number += 2;
 
@@ -353,7 +353,7 @@ fn main() {
         )
     );
 
-    if machine_code_line_number > max_num_ram_cells {
+    if machine_code_line_number > max_num_ram_cells as i32 {
         panic!("File contains too many instructions. {} found, {} maximum.", machine_code_line_number, max_num_ram_cells);
     }
 

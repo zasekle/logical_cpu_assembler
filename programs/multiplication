@@ -1,0 +1,24 @@
+DATA R0 5
+DATA R1 5
+DATA R3 1
+XOR R2 R2
+
+MARK start
+CLF
+SHR R0 R0
+# Something seems to be wrong here, mine jumps to line 13 and his jumps to line 12.
+JIF C first
+# Problem here too, mine is 00010000, his is 00001111
+# Mine jumps one line too far I guess?
+JMP second
+MARK first
+CLF
+ADD R1 R2
+MARK second
+CLF
+SHL R1 R1
+SHL R3 R3
+JIF C end
+JMP start
+
+MARK end
